@@ -17,9 +17,103 @@ stored.
 5. Map the IP address with its MAC address and return the MAC address to client.
 P
 ## PROGRAM - ARP
+```
+DEVELOPED BY:N.Gowsalya
+REGISTER NO:212225230085
+
+CLIENT:
+import socket 
+
+s = socket.socket() 
+
+s.bind(('localhost',8000)) 
+
+s.listen(5) 
+
+c, addr = s.accept() 
+
+address = {
+    "165.165.80.80":"6A:08:AA:C2",
+    "165.165.79.1":"8A:BC:E3:FA"
+}
+
+while True: 
+    ip = c.recv(1024).decode() 
+    
+    try: 
+        c.send(address[ip].encode()) 
+        
+    except KeyError: 
+        c.send("Not Found".encode())
+
+SERVER:
+import socket 
+
+s = socket.socket() 
+
+s.connect(('localhost',8000)) 
+
+while True: 
+    ip = input("Enter logical Address : ") 
+    
+    s.send(ip.encode()) 
+    
+    print("MAC Address :", s.recv(1024).decode())
+```
 ## OUPUT - ARP
+
+<img width="554" height="118" alt="Screenshot 2026-05-23 091946" src="https://github.com/user-attachments/assets/556ad835-6412-48e1-a483-ab980ccc4426" />
+<img width="736" height="166" alt="Screenshot 2026-05-23 092030" src="https://github.com/user-attachments/assets/f664ddd7-c568-42d5-a000-90e4e6acf916" />
+
+
 ## PROGRAM - RARP
+```
+DEVELOPED BY:N.Gowsalya
+REGISTER NO:212225230085
+
+CLIENT:
+import socket 
+
+s = socket.socket() 
+
+s.bind(('localhost',9000)) 
+
+s.listen(5) 
+
+c, addr = s.accept() 
+
+address = {
+    "6A:08:AA:C2":"192.168.1.100",
+    "8A:BC:E3:FA":"192.168.1.99"
+}
+
+while True: 
+    ip = c.recv(1024).decode() 
+    
+    try: 
+        c.send(address[ip].encode()) 
+        
+    except KeyError: 
+        c.send("Not Found".encode())
+
+SERVER:
+import socket 
+
+s = socket.socket() 
+
+s.connect(('localhost',9000)) 
+
+while True: 
+    ip = input("Enter MAC Address : ") 
+    
+    s.send(ip.encode()) 
+    
+    print("Logical Address :", s.recv(1024).decode())
+```
 ## OUPUT -RARP
+<img width="702" height="70" alt="Screenshot 2026-05-23 092742" src="https://github.com/user-attachments/assets/ec26a4cb-3fd9-4564-bf75-79c85ccc392d" />
+<img width="772" height="189" alt="Screenshot 2026-05-23 092755" src="https://github.com/user-attachments/assets/88fabbc3-fc98-4c89-8ae8-81e119e810e3" />
+
 ## RESULT
 Thus, the python program for simulating ARP protocols using TCP was successfully 
 executed.
